@@ -111,6 +111,7 @@ def check_pin(moves):
         return False
   return True
 
+
 def obter_pin(moves):
   if check_pin(moves):
     pos = 5
@@ -122,13 +123,38 @@ def obter_pin(moves):
   else:
     raise ValueError('obter_pin: argumento invalido')
 
-def eh_entrada(entry): # string, array em string, tuplo de inteiros
-  print(entry[0])
-  if len(entry) != 3 and not isinstance(entry, str):
+def eh_entrada(entry):
+  lowercase = 'abcdefghijklmnopqrstuvwxyz'
+  # Whole entry 
+  if not isinstance(entry, tuple):
+    return False
+  if len(entry) != 3:
+    return False
+  
+  # Cifra
+  if not isinstance(entry[0], str) or len(entry[0]) < 1:
     return False
   for i in range(0, len(entry[0])):
-    if not entry[0][i].isalpha() and entry[0][i] != '-':
+    if entry[0][i] not in (lowercase + '-'):
+      return False
+  
+  # Cheksum
+  if not isinstance(entry[1], str) or len(entry[1]) != 7:
+    return False
+  if entry[1][0] != '[' and entry[1][-1] != ']':
+    return False
+  for i in range(1, len(entry[1]) - 1):
+    if entry[1][i] not in lowercase:
+      return False
+  
+  # Number tuple
+  if not isinstance(entry[2], tuple) or len(entry[2]) < 2:
+    return False
+  for i in range(0, len(entry[2])):
+    if not isinstance(entry[2][i], int) or entry[2][i] < 0:
       return False
   return True
 
-print(eh_entrada((('aaaa-bbb'), 1, 2)))
+
+def validar_cifra(cifra, checksum):
+  return 
