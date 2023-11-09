@@ -122,3 +122,13 @@ def obter_pin(moves):
   else:
     raise ValueError('obter_pin: argumento invalido')
 
+def eh_entrada(entry): # string, array em string, tuplo de inteiros
+  print(entry[0])
+  if len(entry) != 3 and not isinstance(entry, str):
+    return False
+  for i in range(0, len(entry[0])):
+    if not entry[0][i].isalpha() and entry[0][i] != '-':
+      return False
+  return True
+
+print(eh_entrada((('aaaa-bbb'), 1, 2)))
