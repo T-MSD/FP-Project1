@@ -134,8 +134,8 @@ def eh_entrada(entry):
   # Cifra
   if not isinstance(entry[0], str) or len(entry[0]) < 1:
     return False
-  for i in range(0, len(entry[0])):
-    if entry[0][i] not in (lowercase + '-'):
+  for c in entry[0]:
+    if c not in (lowercase + '-'):
       return False
   
   # Cheksum
@@ -150,11 +150,50 @@ def eh_entrada(entry):
   # Number tuple
   if not isinstance(entry[2], tuple) or len(entry[2]) < 2:
     return False
-  for i in range(0, len(entry[2])):
-    if not isinstance(entry[2][i], int) or entry[2][i] < 0:
+  for n in entry[2]:
+    if not isinstance(n, int) or n < 0:
       return False
   return True
 
 
 def validar_cifra(cifra, checksum):
-  return 
+  letters = {}
+  for c in cifra:
+    if c not in letters:
+      letters[c] = 1
+    else:
+      letters[c] += 1
+
+  letters = dict(sorted(letters.items(), key=lambda item: item[1]))
+
+  print(letters)
+  i = 1
+  for key in letters:
+    print(key)
+    if key != checksum[i]:
+      return False
+    if i == 5:
+      return True
+    i += 1
+
+    """
+    # Group keys by values
+    grouped_by_value = {}
+    for key, value in my_dict.items():
+        if value not in grouped_by_value:
+            grouped_by_value[value] = [key]
+        else:
+            grouped_by_value[value].append(key)
+
+    # Sort keys alphabetically within each value group
+    for value, keys in grouped_by_value.items():
+        grouped_by_value[value] = sorted(keys)
+
+    # Create a new dictionary with sorted keys
+    sorted_dict = {key: value for value, keys in grouped_by_value.items() for key in keys}
+    """
+    
+
+
+print(validar_cifra('xxyyaabbcdcdee', '[abcde]'))
+
