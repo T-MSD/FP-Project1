@@ -182,8 +182,15 @@ def filtrar_bdb(input):
 
 
 def obter_num_seguranca(tuple):
-  return
-
+  n = 0
+  size = len(tuple)
+  for i in range(size):
+    for j in range(size):
+      if n == 0 and tuple[i] - tuple[j] > 0:
+        n = tuple[i] - tuple[j]
+      elif i != j and tuple[i] - tuple[j] < n and tuple[i] - tuple[j] >= 0:
+        n = tuple[i] - tuple[j]
+  return n
 
 def decifrar_texto(cifra, number):
   return
