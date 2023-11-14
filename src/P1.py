@@ -159,41 +159,35 @@ def eh_entrada(entry):
 def validar_cifra(cifra, checksum):
   letters = {}
   for c in cifra:
-    if c not in letters:
-      letters[c] = 1
-    else:
-      letters[c] += 1
+    if c != '-':
+      if c not in letters:
+        letters[c] = 1
+      else:
+        letters[c] += 1
 
-  letters = dict(sorted(letters.items(), key=lambda item: item[1]))
+  letters = dict(sorted(letters.items(), key=lambda x: x[1]*(1+ord('z')) - ord(x[0]), reverse=True))
+  return ''.join(key for key in list(letters.keys())[:5]) == checksum[1:6]
 
-  print(letters)
-  i = 1
-  for key in letters:
-    print(key)
-    if key != checksum[i]:
-      return False
-    if i == 5:
-      return True
-    i += 1
 
-    """
-    # Group keys by values
-    grouped_by_value = {}
-    for key, value in my_dict.items():
-        if value not in grouped_by_value:
-            grouped_by_value[value] = [key]
-        else:
-            grouped_by_value[value].append(key)
-
-    # Sort keys alphabetically within each value group
-    for value, keys in grouped_by_value.items():
-        grouped_by_value[value] = sorted(keys)
-
-    # Create a new dictionary with sorted keys
-    sorted_dict = {key: value for value, keys in grouped_by_value.items() for key in keys}
-    """
+def filtrar_bdb(input):
+  if isinstance(input, list) and len(input) >= 1 and all(eh_entrada(tuple) for tuple in input):
+    output = []
+    for tuple in input:
+      if not (validar_cifra(tuple[0], tuple[1])):
+        output.append(tuple)
     
+    return output
+  
+  raise ValueError('filtrar_bdb: argumento invalido')
 
 
-print(validar_cifra('xxyyaabbcdcdee', '[abcde]'))
+def obter_num_seguranca(tuple):
+  return
 
+
+def decifrar_texto(cifra, number):
+  return
+
+
+def decifrar_bdb(input):
+  return
