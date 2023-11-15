@@ -193,7 +193,27 @@ def obter_num_seguranca(tuple):
   return n
 
 def decifrar_texto(cifra, number):
-  return
+  i = 0
+  output = ''
+  size = len(cifra)
+  while i < size:
+    if cifra[i] == '-':
+      output += ' '
+      i += 1
+    else:
+      if i % 2 == 0:
+        n = 1
+      elif i % 2 != 0:
+        n = -1
+      ascii = ord(cifra[i]) + number + n
+      if ascii > 122:
+        ascii = ord(cifra[i]) + (26 % number) + n
+      output += chr(ascii)
+      i += 1
+
+  return output
+
+print(decifrar_texto('abcde', 1))
 
 
 def decifrar_bdb(input):
