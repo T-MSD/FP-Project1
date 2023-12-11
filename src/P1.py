@@ -1,3 +1,4 @@
+# 1.2.1
 def corrigir_palavra(str):
   modified = False
   for i in range(0, len(str) - 1):
@@ -10,6 +11,7 @@ def corrigir_palavra(str):
     return str
 
 
+# 1.2.2
 def eh_anagrama(str1, str2):
   return sorted(str1.upper()) == sorted(str2.upper())
 
@@ -28,6 +30,7 @@ def check_arg(string):
   return True
 
 
+# 1.2.3
 def corrigir_doc(str = None):
   if check_arg(str):
     texto = []
@@ -63,6 +66,7 @@ def corrigir_doc(str = None):
   raise ValueError('corrigir_doc: argumento invalido')
 
 
+# 2.2.1
 def obter_posicao(move, pos):
   stay = {
     1:["E","C"],
@@ -92,6 +96,7 @@ def obter_posicao(move, pos):
        return pos + 3
 
 
+# 2.2.2
 def obter_digito(move, pos):
   for c in move:
     pos = obter_posicao(c, pos)
@@ -112,6 +117,7 @@ def check_pin(moves):
   return True
 
 
+# 2.2.3
 def obter_pin(moves):
   if check_pin(moves):
     pos = 5
@@ -123,6 +129,8 @@ def obter_pin(moves):
   else:
     raise ValueError('obter_pin: argumento invalido')
 
+
+# 3.2.1
 def eh_entrada(entry):
   lowercase = 'abcdefghijklmnopqrstuvwxyz'
   # Whole entry 
@@ -156,6 +164,7 @@ def eh_entrada(entry):
   return True
 
 
+# 3.2.2
 def validar_cifra(cifra, checksum):
   letters = {}
   for c in cifra:
@@ -169,6 +178,7 @@ def validar_cifra(cifra, checksum):
   return ''.join(key for key in list(letters.keys())[:5]) == checksum[1:6]
 
 
+# 3.2.3
 def filtrar_bdb(input):
   if isinstance(input, list) and len(input) >= 1 and all(eh_entrada(tuple) for tuple in input):
     output = []
@@ -181,6 +191,7 @@ def filtrar_bdb(input):
   raise ValueError('filtrar_bdb: argumento invalido')
 
 
+# 4.2.2
 def obter_num_seguranca(tuple):
   n = 0
   size = len(tuple)
@@ -192,6 +203,8 @@ def obter_num_seguranca(tuple):
         n = tuple[i] - tuple[j]
   return n
 
+
+# 4.2.3
 def decifrar_texto(cifra, number):
   i = 0
   output = ''
@@ -205,16 +218,27 @@ def decifrar_texto(cifra, number):
         n = 1
       elif i % 2 != 0:
         n = -1
-      ascii = ord(cifra[i]) + number + n
+      ascii = ord(cifra[i]) + (number % 26) + n
       if ascii > 122:
-        ascii = ord(cifra[i]) + (26 % number) + n
-      output += chr(ascii)
+        ascii = ascii - 26
+      elif ascii < 97:
+        ascii = ascii + 26
+      output += chr(ascii)  
       i += 1
 
   return output
 
-print(decifrar_texto('abcde', 1))
 
-
+# 4.2.4
 def decifrar_bdb(input):
-  return
+  output = []
+  if isinstance(input, list):
+    for tuple in input:
+      if not eh_entrada(tuple):
+        raise ValueError('decifrar_bdb: argumento invalido')
+      else:
+        output.append(decifrar_texto(tuple[0], obter_num_seguranca(tuple[2])))
+  return output
+
+
+# 5.2.1
