@@ -242,3 +242,31 @@ def decifrar_bdb(input):
 
 
 # 5.2.1
+def eh_utilizador(input):
+  if not isinstance(input, dict):
+    return False
+  if not isinstance(input['name'], str) or len(input['name']) < 1:
+    return False
+  if not isinstance(input['pass'], str) or len(input['pass']) < 1:
+    return False
+  if len(input) != 3:
+    return False
+  if not isinstance(input['rule'], dict):
+    return False
+  if len(input['rule']) != 2:
+    return False
+  if not isinstance(input['rule']['vals'], tuple) or len(input['rule']['vals']) != 2:
+    return False
+  if not isinstance(input['rule']['char'], str) or len(input['rule']['char']) != 1:
+    return False
+  for i in range(2):
+    if not isinstance(input['rule']['vals'][i], int) or input['rule']['vals'][i] < 0:
+      return False
+  if input['rule']['vals'][0] > input['rule']['vals'][1]:
+    return False
+  return True
+
+
+# 5.2.2
+def eh_senha_valida(string, rule):
+  return
