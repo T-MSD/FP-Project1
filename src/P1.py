@@ -47,7 +47,6 @@ def corrigir_doc(str = None):
     while x < len(texto):
       z = x + 1
       while z < len(texto):
-        # só anagramas em que a sequencia de letras é diferente
         if eh_anagrama(texto[x], texto[z]) and texto[x] != texto[z]:
           if texto[z].upper() not in anagramas:
             anagramas.append(texto[z].upper())
@@ -173,7 +172,6 @@ def validar_cifra(cifra, checksum):
         letters[c] = 1
       else:
         letters[c] += 1
-
   letters = dict(sorted(letters.items(), key=lambda x: x[1]*(1+ord('z')) - ord(x[0]), reverse=True))
   return ''.join(key for key in list(letters.keys())[:5]) == checksum[1:6]
 
@@ -185,9 +183,7 @@ def filtrar_bdb(input):
     for tuple in input:
       if not (validar_cifra(tuple[0], tuple[1])):
         output.append(tuple)
-    
     return output
-  
   raise ValueError('filtrar_bdb: argumento invalido')
 
 
@@ -225,7 +221,6 @@ def decifrar_texto(cifra, number):
         ascii = ascii + 26
       output += chr(ascii)  
       i += 1
-
   return output
 
 
