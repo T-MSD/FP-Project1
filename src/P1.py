@@ -269,4 +269,36 @@ def eh_utilizador(input):
 
 # 5.2.2
 def eh_senha_valida(string, rule):
+  vogal_counter = 0
+  char_counter = 0
+  vogal = 'aeiou'
+  for c in string:
+    if c in vogal:
+      vogal_counter += 1
+    if c == rule['char']:
+      char_counter += 1
+
+  if vogal_counter < 3:
+    return False
+  
+  if char_counter < rule['vals'][0] or char_counter > rule['vals'][1]:
+    return False
+  
+  consecutive = False
+  for i in range(len(string) - 1):
+    if string[i] == string[i+1]:
+      consecutive = True
+      break
+  if not consecutive:
+    return False
+
+  return True
+
+
+# 5.2.3
+def filtrar_senhas(input):
+  for user in input:
+    if not eh_utilizador(user):
+      raise ValueError('filtrar_senhas: argumento invalido')
+    
   return
