@@ -297,8 +297,13 @@ def eh_senha_valida(string, rule):
 
 # 5.2.3
 def filtrar_senhas(input):
-  for user in input:
-    if not eh_utilizador(user):
+  output = []
+  if not isinstance(input, list):
+    raise ValueError('filtrar_senhas: argumento invalido')
+  for d in input:
+    if not eh_utilizador(d):
       raise ValueError('filtrar_senhas: argumento invalido')
-    
-  return
+    if not eh_senha_valida(d['pass'], d['rule']):
+      output.append(d['name'])
+  output.sort()
+  return output
